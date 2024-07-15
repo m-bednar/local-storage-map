@@ -2,7 +2,7 @@
   "name": "local-storage-map",
   "version": "1.0.0",
   "description": "Convenient Map implementation for browser's localStorage.",
-  "main": "dst/index.js",
+  "main": "build/src/index.js",
   "scripts": {
     "build": "tsc --project tsconfig.json",
     "test": "npm run build && mocha ./build/test"
