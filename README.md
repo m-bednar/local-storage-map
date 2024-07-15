@@ -1,14 +1,18 @@
-# LocalStorage Map 
-Convinient implementation of Map interface upon browser's localStorage. 
+# LocalStorage Map
 
-- efficient 
-- automatic serialization/deserialization
-- automatic saving to localStorage
+Convinient implementation of Map interface upon browser's localStorage.
+
+- efficient
+- minimalistic
 - fully written in typescript
 - unit-tested
+- automatic serialization/deserialization
+- automatic saving to localStorage
 
-## Usage 
-Implements all methods from the `Map<string, T>` type: 
+## Usage
+
+Implements all methods from the `Map<string, VALUE>` type:
+
 ```typescript
 import {LocalStorageMap} from 'local-storage-map'
 
@@ -27,9 +31,12 @@ hoursOnHobbies.values()            // IterableIterator{ 10, 6 }
 hoursOnHobbies.clear()
 ```
 
-and is iterable:
+It's iterable:
+
 ```typescript
 for (const [key, value] of hoursOnHobbies) {
     console.log(key, value)
 }
 ```
+
+As it fully conforms to Map type, you can use it instead as super-type, so without the need for interface changes.
