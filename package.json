@@ -1,0 +1,38 @@
+{
+  "name": "local-storage-map",
+  "version": "1.0.0",
+  "description": "Convenient Map implementation for browser's localStorage.",
+  "main": "dst/index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "test": "npm run build && mocha ./build/test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-bednar/local-storage-map.git"
+  },
+  "keywords": [
+    "localstorage",
+    "storage",
+    "map",
+    "persistent"
+  ],
+  "author": "Martin Bednar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m-bednar/local-storage-map/issues"
+  },
+  "homepage": "https://github.com/m-bednar/local-storage-map#readme",
+  "devDependencies": {
+    "@types/chai": "^4.3.16",
+    "@types/mocha": "^10.0.7",
+    "@types/sinon": "^17.0.3",
+    "@types/sinon-chai": "^3.2.12",
+    "chai": "^4.4.1",
+    "mocha": "^10.6.0",
+    "sinon": "^18.0.0",
+    "sinon-chai": "^3.7.0",
+    "ts-sinon": "^2.0.2",
+    "typescript": "^5.5.3"
+  }
+}
