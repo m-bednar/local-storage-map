@@ -1,6 +1,6 @@
 # LocalStorage Map
 
-Convinient implementation of Map interface upon browser's localStorage.
+Convenient implementation of Map interface upon browser's localStorage.
 
 - efficient
 - minimalistic
