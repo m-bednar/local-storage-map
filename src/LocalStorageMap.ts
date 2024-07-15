@@ -2,11 +2,12 @@ export class LocalStorageMap<VALUE> implements Map<string, Readonly<VALUE>> {
     private data: Record<string, VALUE>;
 
     constructor(private readonly masterKey: string, private readonly storage: Storage = localStorage) {
-        this.data = this.loadData()
+        this.data = this.loadData();
+        this.saveData();
     }
 
     public has(key: string): boolean {
-        return key in this.data
+        return key in this.data;
     }
     
     public get(key: string): Readonly<VALUE> | undefined {
