@@ -3,30 +3,88 @@ import { LocalStorageMap } from '../src/LocalStorageMap';
 import { expect } from 'chai';
 
 describe('LocalStorageMap', () => {
-    describe('when constructed', () => {
-        it('should try to get stored value from storage by master key', () => {
-            const { storage, masterKey } = setup();
-            expect(storage.getItem).to.be.calledOnceWithExactly(masterKey);
-        });
+    describe('when asked if has key', () => {
+        describe('and key does exists', () => {
+            it('should return true', () => {
+                const { localStorageMap } = setup({ key: 'value' });
+                const result = localStorageMap.has('key');
 
-        describe('and no value is stored in storage under master key', () => {
-            it('should store new empty object in storage', () => {
-                const { storage, masterKey } = setup();
-                expect(storage.setItem).to.be.calledOnceWithExactly(masterKey, JSON.stringify({}));
+                expect(result).to.be.true;
             });
         });
 
-        describe('and value stored in storage under master key is not object', () => {
-            it('should store new empty object in storage', () => {
-                const { storage, masterKey } = setup('non-object-value');
-                expect(storage.setItem).to.be.calledOnceWithExactly(masterKey, JSON.stringify({}));
+        describe('and key does not exists', () => {
+            it('should return false', () => {
+                const { localStorageMap } = setup();
+                const result = localStorageMap.has('key');
+
+                expect(result).to.be.false;
             });
         });
     });
 
-    describe('when asked to set', () => {});
+    describe('when asked to set', () => {
+        it('should set property onto stored object', () => {
+            const { storage, localStorageMap, masterKey } = setup({ oldKey: 'value' });
+            localStorageMap.set('newKey', 'another-value');
 
-    describe('when asked to get', () => {});
+            expect(storage.setItem).to.be.calledOnceWithExactly(masterKey, JSON.stringify({
+                oldKey: 'value',
+                newKey: 'another-value'
+            }));
+        });
+    });
+
+    describe('when asked to get', () => {
+        describe('and key does exists', () => {
+            it('should return stored value', () => {
+                const { localStorageMap } = setup({ key: 'value' });
+                const result = localStorageMap.get('key');
+    
+                expect(result).to.be.equal('value');
+            });
+        });
+
+        describe('and key does not exists', () => {
+            it('should return undefined', () => {
+                const { localStorageMap } = setup({});
+                const result = localStorageMap.get('key');
+    
+                expect(result).to.be.undefined;
+            });
+        });
+    });
+
+    describe('when asked to clear', () => {
+        it('should save empty object', () => {
+            const { masterKey, storage, localStorageMap } = setup({});
+            localStorageMap.clear();
+
+            expect(storage.setItem).to.be.calledOnceWithExactly(masterKey, JSON.stringify({}));
+        });
+    });
+
+    describe('when asked to delete key', () => {
+        describe('and key does exists', () => {
+            it('should return true and save object without the key', () => {
+                const { masterKey, storage, localStorageMap } = setup({ key: 'value', anotherKey: 'another-value' });
+                const result = localStorageMap.delete('key');
+
+                expect(result).to.be.true;
+                expect(storage.setItem).to.be.calledOnceWithExactly(masterKey, JSON.stringify({ anotherKey: 'another-value' }));
+            });
+        });
+
+        describe('and key does not exists', () => {
+            it('should return false and not save anything', () => {
+                const { storage, localStorageMap } = setup({});
+                const result = localStorageMap.delete('key');
+
+                expect(result).to.be.false;
+                expect(storage.setItem).to.not.be.called;
+            });
+        });
+    });
 
     function setup(stored?: any) {
         const masterKey = 'test-master-key';
