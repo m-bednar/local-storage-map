@@ -3,7 +3,6 @@ export class LocalStorageMap<VALUE> implements Map<string, Readonly<VALUE>> {
 
     constructor(private readonly masterKey: string, private readonly storage: Storage = localStorage) {
         this.data = this.loadData();
-        this.saveData();
     }
 
     public has(key: string): boolean {
@@ -21,8 +20,8 @@ export class LocalStorageMap<VALUE> implements Map<string, Readonly<VALUE>> {
     }
 
     public clear(): void {
-        this.data = {}
-        this.saveData()
+        this.data = {};
+        this.saveData();
     }
 
     public delete(key: string): boolean {
@@ -31,11 +30,11 @@ export class LocalStorageMap<VALUE> implements Map<string, Readonly<VALUE>> {
             this.saveData();
             return true;
         }
-        return false
+        return false;
     }
 
     public forEach(callback: (value: Readonly<VALUE>, key: string, map: Map<string, Readonly<VALUE>>) => void): void {
-        Array.from(this.entries()).forEach(([key, value]) => callback(value, key, this))
+        Array.from(this.entries()).forEach(([key, value]) => callback(value, key, this));
     }
 
     public entries(): IterableIterator<[string, Readonly<VALUE>]> {
@@ -59,7 +58,7 @@ export class LocalStorageMap<VALUE> implements Map<string, Readonly<VALUE>> {
     }
 
     public get [Symbol.toStringTag](): string {
-        return LocalStorageMap.name
+        return LocalStorageMap.name;
     }
     
     private saveData() {
