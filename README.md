@@ -6,8 +6,8 @@ Convenient implementation of Map interface upon browser's localStorage.
 - minimalistic
 - fully written in typescript
 - unit-tested
-- automatic serialization/deserialization
-- automatic saving to localStorage
+- auto serialization/deserialization
+- auto saving to localStorage
 
 ## Usage
 
