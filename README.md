@@ -2,12 +2,10 @@
 
 Convenient implementation of `Map` interface upon browser's localStorage.
 
-- Efficient
-- Minimalistic
-- Fully written in typescript
-- Unit-tested
-- Auto serialization/deserialization
-- Auto saving to localStorage
+- 🚀 Efficient
+- 📦 Minimalistic
+- 💪 Written in Typescript 
+- 🧪 Fully unit-tested 
 
 ## Usage
 
@@ -57,4 +55,4 @@ clicksPerSession.set('sidebar', 0)
 // ... 
 ```
 
-**Warning:** never store any sensitive information inside `localStorage`/`sessionStorage`!
+**Warning:** never store any sensitive information inside `localStorage`/`sessionStorage`.
