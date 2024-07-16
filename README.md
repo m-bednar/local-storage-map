@@ -1,13 +1,13 @@
 # LocalStorage Map
 
-Convenient implementation of Map interface upon browser's localStorage.
+Convenient implementation of `Map` interface upon browser's localStorage.
 
-- efficient
-- minimalistic
-- fully written in typescript
-- unit-tested
-- auto serialization/deserialization
-- auto saving to localStorage
+- Efficient
+- Minimalistic
+- Fully written in typescript
+- Unit-tested
+- Auto serialization/deserialization
+- Auto saving to localStorage
 
 ## Usage
 
@@ -31,7 +31,7 @@ hoursOnHobbies.values()            // IterableIterator{ 10, 6 }
 hoursOnHobbies.clear()
 ```
 
-It's iterable:
+And it's also iterable:
 
 ```typescript
 for (const [key, value] of hoursOnHobbies) {
@@ -40,3 +40,21 @@ for (const [key, value] of hoursOnHobbies) {
 ```
 
 As it fully conforms to Map type, you can use it instead as super-type, so without the need for interface changes.
+
+## Using different Storage 
+
+You can also use different type of storage, if default `localStorage` is not suitable for your use-case. 
+
+For example we can use `sessionStorage`:
+
+```typescript
+import {LocalStorageMap} from 'local-storage-map'
+
+const clicksPerSession = new LocalStorageMap<number>('clicks', sessionStorage)
+clicksPerSession.set('article', 0)
+clicksPerSession.set('sidebar', 0)
+
+// ... 
+```
+
+**Warning:** never store any sensitive information inside `localStorage`/`sessionStorage`!
