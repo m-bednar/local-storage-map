@@ -1,0 +1,13 @@
+# sources
+src
+test
+
+# configs
+tsconfig.json
+
+# deps
+node_modules
+
+# git
+.git
+.gitignore
