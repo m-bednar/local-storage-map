@@ -52,9 +52,9 @@ For example we can use `sessionStorage`:
 ```typescript
 import {LocalStorageMap} from 'local-storage-map'
 
-const clicksPerSession = new LocalStorageMap<number>('clicks', sessionStorage)
-clicksPerSession.set('article', 0)
-clicksPerSession.set('sidebar', 0)
+const clicksPerSession = new LocalStorageMap<boolean>('clicked', sessionStorage)
+clicksPerSession.set('article', false)
+clicksPerSession.set('sidebar', false)
 
 // ... 
 ```
