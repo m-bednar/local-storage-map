@@ -1,8 +1,8 @@
 # LocalStorage Map
 
-![Static Badge](https://img.shields.io/badge/build-passing-brightgreen)
+[![Static Badge](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/m-bednar/local-storage-map)
 ![NPM License](https://img.shields.io/npm/l/local-storage-map)
-![NPM Version](https://img.shields.io/npm/v/local-storage-map)
+[![NPM Version](https://img.shields.io/npm/v/local-storage-map)](https://www.npmjs.com/package/local-storage-map)
 
 Convenient implementation of `Map` interface upon browser's localStorage.
 
