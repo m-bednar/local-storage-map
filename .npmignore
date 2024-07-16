@@ -2,6 +2,9 @@
 src
 test
 
+# tests
+build/test
+
 # configs
 tsconfig.json
 
