@@ -69,11 +69,13 @@ export class LocalStorageMap<VALUE extends SerializableValue> implements Map<str
 
     private loadData(): Record<string, Readonly<VALUE>> {
         const value = this.storage.getItem(this.masterKey);
-        if (value) {
-            const parsed = JSON.parse(value);
-            if (typeof parsed === 'object') {
-                return parsed;
-            }
+        return value ? this.loadValue(value) : {};
+    }
+
+    private loadValue(content: string): Record<string, Readonly<VALUE>> {
+        const parsed = JSON.parse(content);
+        if (typeof parsed === 'object') {
+            return parsed;
         }
         return {};
     }
