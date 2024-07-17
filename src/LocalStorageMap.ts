@@ -1,4 +1,6 @@
-export class LocalStorageMap<VALUE> implements Map<string, Readonly<VALUE>> {
+import { SerializableValue } from "./Serializable";
+
+export class LocalStorageMap<VALUE extends SerializableValue> implements Map<string, Readonly<VALUE>> {
     private data: Record<string, VALUE>;
 
     constructor(private readonly masterKey: string, private readonly storage: Storage = localStorage) {
