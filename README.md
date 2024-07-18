@@ -60,3 +60,25 @@ clicksPerSession.set('sidebar', false)
 ```
 
 **Warning:** never store any sensitive information inside `localStorage`/`sessionStorage`.
+
+## Modifying stored values
+
+Objects and arrays stored in `LocalStorageMap` must be set again after modifying. Returned value is `readonly` for the purpose of 
+informing the programmer, that the value cannot be modified directly. The preferred approach for setting object/array values is to get the value
+and spread it into new object/array which is then set:
+
+```typescript
+import {LocalStorageMap} from 'local-storage-map'
+
+const companySharesByCategory = new LocalStorageMap<Record<string, number>>('shares')
+companySharesByCategory.set('technology', {
+  amd: 1000,
+  microsoft: 300,
+  nvidia: 420
+})
+
+// Later in code...
+const companyShares = companySharesByCategory.get('technology')
+companySharesByCategory.set({ ...companyShares, microsoft: 350 })
+```
+
