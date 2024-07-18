@@ -13,7 +13,7 @@ Convenient implementation of `Map` interface upon browser's localStorage.
 
 ## Usage
 
-Implements all methods from the `Map<string, VALUE>` type:
+Implements all methods from the `Map<string, SerializableValue>` type:
 
 ```typescript
 import {LocalStorageMap} from 'local-storage-map'
