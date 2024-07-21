@@ -82,3 +82,19 @@ const companyShares = companySharesByCategory.get('technology')
 companySharesByCategory.set({ ...companyShares, microsoft: 350 })
 ```
 
+## Dynamic value object
+
+For convenience there is also a `DynamicStorageValue` object you can get from storage and later use.
+
+```typescript
+import {LocalStorageMap} from 'local-storage-map'
+
+const storage = new LocalStorageMap<Record<string, number>>('general')
+storage.set('clicks', 100)
+
+// Later in code...
+const clicks = storage.dynamic('clicks')
+clicks.get()    // 100
+clicks.set(200) // Automatically saved to storage
+```
+
