@@ -76,7 +76,7 @@ describe('LocalStorageMap', () => {
         });
 
         describe('and key does not exists', () => {
-            it('should return false and not save anything', () => {
+            it('should return false and not save stringthing', () => {
                 const { storage, localStorageMap } = setup({});
                 const result = localStorageMap.delete('key');
 
@@ -88,7 +88,7 @@ describe('LocalStorageMap', () => {
 
     describe('when called with forEach', () => {
         it('should call callback on every stored key-value', () => {
-            const data: Record<string, any> = { key1: 'value1', key2: 'value2', key3: 'value3' };
+            const data: Record<string, string> = { key1: 'value1', key2: 'value2', key3: 'value3' };
             const { localStorageMap } = setup(data);
 
             localStorageMap.forEach((value, key, map) => {
@@ -101,7 +101,7 @@ describe('LocalStorageMap', () => {
 
     describe('when asked to get entries', () => {
         it('should return all entries', () => {
-            const data: Record<string, any> = { key1: 'value1', key2: 'value2', key3: 'value3' };
+            const data: Record<string, string> = { key1: 'value1', key2: 'value2', key3: 'value3' };
             const { localStorageMap } = setup(data);
 
             const entries = Array.from(localStorageMap.entries());
@@ -111,7 +111,7 @@ describe('LocalStorageMap', () => {
 
     describe('when asked to get keys', () => {
         it('should return all keys', () => {
-            const data: Record<string, any> = { key1: 'value1', key2: 'value2', key3: 'value3' };
+            const data: Record<string, string> = { key1: 'value1', key2: 'value2', key3: 'value3' };
             const { localStorageMap } = setup(data);
 
             const entries = Array.from(localStorageMap.keys());
@@ -121,7 +121,7 @@ describe('LocalStorageMap', () => {
 
     describe('when asked to get values', () => {
         it('should return all values', () => {
-            const data: Record<string, any> = { key1: 'value1', key2: 'value2', key3: 'value3' };
+            const data: Record<string, string> = { key1: 'value1', key2: 'value2', key3: 'value3' };
             const { localStorageMap } = setup(data);
 
             const entries = Array.from(localStorageMap.values());
@@ -131,7 +131,7 @@ describe('LocalStorageMap', () => {
 
     describe('when being iterated', () => {
         it('should iterate trough all entries', () => {
-            const data: Record<string, any> = { key1: 'value1', key2: 'value2', key3: 'value3' };
+            const data: Record<string, string> = { key1: 'value1', key2: 'value2', key3: 'value3' };
             const { localStorageMap } = setup(data);
 
             for (const [key, value] of localStorageMap) {
@@ -143,7 +143,7 @@ describe('LocalStorageMap', () => {
 
     describe('when asked for size', () => {
         it('should return number of entries', () => {
-            const data: Record<string, any> = { key1: 'value1', key2: 'value2', key3: 'value3' };
+            const data: Record<string, string> = { key1: 'value1', key2: 'value2', key3: 'value3' };
             const { localStorageMap } = setup(data);
             const size = localStorageMap.size;
             
@@ -160,7 +160,7 @@ describe('LocalStorageMap', () => {
         }); 
     });
 
-    function setup(stored?: any) {
+    function setup(stored?: unknown) {
         const masterKey = 'test-master-key';
         const storage = stubInterface<Storage>();
         storage.getItem.returns(stored ? JSON.stringify(stored) : null);
