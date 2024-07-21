@@ -1,3 +1,4 @@
+import { DynamicStorageValue } from "./DynamicStorageValue";
 import { SerializableValue } from "./Serializable";
 
 export class LocalStorageMap<VALUE extends SerializableValue> implements Map<string, Readonly<VALUE>> {
@@ -15,6 +16,13 @@ export class LocalStorageMap<VALUE extends SerializableValue> implements Map<str
         const data = this.loadData();
         return data[key];
     }
+
+    public dynamic(key: string): DynamicStorageValue<VALUE> | undefined {
+        return {
+            get: () => { return this.get(key); },
+            set: (value) => { this.set(key, value); }
+        };
+    }
     
     public set(key: string, value: VALUE): this {
         const data = this.loadData();
@@ -29,7 +37,7 @@ export class LocalStorageMap<VALUE extends SerializableValue> implements Map<str
 
     public delete(key: string): boolean {
         const data = this.loadData();
-        if (this.has(key)) {
+        if (key in data) {
             delete data[key];
             this.saveData(data);
             return true;
