@@ -1,6 +1,6 @@
 {
   "name": "local-storage-map",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Convenient Map implementation for browser's localStorage.",
   "main": "build/src/index.js",
   "scripts": {
