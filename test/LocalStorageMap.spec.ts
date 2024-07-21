@@ -55,6 +55,21 @@ describe('LocalStorageMap', () => {
         });
     });
 
+    describe('when asked for dynamic value', () => {
+        it('should return dynamic object capable of get/set', () => {
+            const { localStorageMap, storage, masterKey } = setup({key: 'value'});
+            const result = localStorageMap.dynamic('key');
+
+            const value = result.get();
+            expect(value).to.be.equal(value);
+            expect(storage.getItem).to.be.calledOnceWithExactly(masterKey);
+
+            result.set('another-value');
+            expect(value).to.be.equal(value);
+            expect(storage.setItem).to.be.calledOnceWithExactly(masterKey, JSON.stringify({key: 'another-value'}));
+        });
+    });
+
     describe('when asked to clear', () => {
         it('should save empty object', () => {
             const { masterKey, storage, localStorageMap } = setup({});
@@ -160,7 +175,7 @@ describe('LocalStorageMap', () => {
         }); 
     });
 
-    function setup(stored?: unknown) {
+    function setup(stored?: Record<string, string>) {
         const masterKey = 'test-master-key';
         const storage = stubInterface<Storage>();
         storage.getItem.returns(stored ? JSON.stringify(stored) : null);
