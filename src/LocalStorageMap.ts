@@ -17,7 +17,7 @@ export class LocalStorageMap<VALUE extends SerializableValue> implements Map<str
         return data[key];
     }
 
-    public dynamic(key: string): DynamicStorageValue<VALUE> | undefined {
+    public dynamic(key: string): DynamicStorageValue<VALUE> {
         return {
             get: () => { return this.get(key); },
             set: (value) => { this.set(key, value); }
