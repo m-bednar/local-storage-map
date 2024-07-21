@@ -1,35 +1,37 @@
 import { SerializableValue } from "./Serializable";
 
 export class LocalStorageMap<VALUE extends SerializableValue> implements Map<string, Readonly<VALUE>> {
-    private data: Record<string, VALUE>;
-
-    constructor(private readonly masterKey: string, private readonly storage: Storage = localStorage) {
-        this.data = this.loadData();
-    }
+    constructor(
+        private readonly masterKey: string, 
+        private readonly storage: Storage = localStorage
+    ) {}
 
     public has(key: string): boolean {
-        return key in this.data;
+        const data = this.loadData();
+        return key in data;
     }
     
     public get(key: string): Readonly<VALUE> | undefined {
-        return this.data[key];
+        const data = this.loadData();
+        return data[key];
     }
     
     public set(key: string, value: VALUE): this {
-        this.data[key] = value
-        this.saveData();
+        const data = this.loadData();
+        data[key] = value
+        this.saveData(data);
         return this
     }
 
     public clear(): void {
-        this.data = {};
-        this.saveData();
+        this.saveData({});
     }
 
     public delete(key: string): boolean {
+        const data = this.loadData();
         if (this.has(key)) {
-            delete this.data[key];
-            this.saveData();
+            delete data[key];
+            this.saveData(data);
             return true;
         }
         return false;
@@ -40,15 +42,18 @@ export class LocalStorageMap<VALUE extends SerializableValue> implements Map<str
     }
 
     public entries(): IterableIterator<[string, Readonly<VALUE>]> {
-        return Object.entries(this.data)[Symbol.iterator]();
+        const data = this.loadData();
+        return Object.entries(data)[Symbol.iterator]();
     }
 
     public keys(): IterableIterator<string> {
-        return Object.keys(this.data)[Symbol.iterator]();
+        const data = this.loadData();
+        return Object.keys(data)[Symbol.iterator]();
     }
 
     public values(): IterableIterator<Readonly<VALUE>> {
-        return Object.values(this.data)[Symbol.iterator]();
+        const data = this.loadData();
+        return Object.values(data)[Symbol.iterator]();
     }
 
     public [Symbol.iterator](): IterableIterator<[string, Readonly<VALUE>]> {
@@ -56,15 +61,16 @@ export class LocalStorageMap<VALUE extends SerializableValue> implements Map<str
     }
 
     public get size(): number {
-        return Object.entries(this.data).length;
+        const data = this.loadData();
+        return Object.entries(data).length;
     }
 
     public get [Symbol.toStringTag](): string {
         return LocalStorageMap.name;
     }
     
-    private saveData() {
-        this.storage.setItem(this.masterKey, JSON.stringify(this.data));
+    private saveData(data: Record<string, VALUE>) {
+        this.storage.setItem(this.masterKey, JSON.stringify(data));
     }
 
     private loadData(): Record<string, Readonly<VALUE>> {
